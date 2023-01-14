@@ -1,0 +1,8 @@
+.header {
+  background-color: var(--primary-color);
+  font-weight: 500;
+  color: white;
+  font-size: 36px;
+  padding: 20px 100px;
+  margin-bottom: 32px;
+}

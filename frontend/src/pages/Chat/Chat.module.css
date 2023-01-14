@@ -1,0 +1,121 @@
+.chat {
+  color: black;
+}
+
+.chat-container {
+  height: 50vh;
+  overflow-y: auto;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+.roomid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 4px;
+}
+
+.roomid h4 {
+  font-size: 26px;
+  font-weight: 900;
+  color: rgb(49, 49, 49);
+}
+
+.roomid span {
+  color: black;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+}
+
+.info {
+  align-self: center;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 2px 10px;
+  font-weight: 400;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.user {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  font-family: monospace;
+}
+
+.sender,
+.receiver {
+  list-style: none;
+  padding: 2px 16px;
+  margin: 5px 0px;
+  background-color: rgb(252, 252, 252);
+  border-radius: 5px;
+  animation: popup 0.4s ease-in-out forwards;
+  transition: all 1s;
+}
+
+.sender {
+  align-self: flex-end;
+  background-color: rgba(84, 147, 255, 0.797);
+}
+
+.receiver {
+  background-color: rgba(56, 255, 225, 0.797);
+  align-self: flex-start;
+}
+
+.actions {
+  margin-top: 20px;
+}
+.actions form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: stretch;
+}
+
+.actions input {
+  flex: 4;
+  padding: 4px;
+}
+.actions button {
+  flex: 1;
+  align-self: flex-end;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(-100);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-50);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

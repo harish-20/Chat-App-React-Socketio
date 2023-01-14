@@ -1,0 +1,22 @@
+.login-container {
+  max-width: 420px;
+  margin: auto;
+  padding: 56px 24px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.login-container label {
+  margin-top: 30px;
+}
+
+.login-container button {
+  margin-top: 50px;
+}
+
+.btn {
+  margin-top: 40px;
+  color: white;
+  padding: auto 20px;
+  text-decoration: none;
+}
