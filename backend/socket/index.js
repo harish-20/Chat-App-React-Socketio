@@ -1,5 +1,5 @@
 const socket = require('socket.io')
-const addUser = require('./entity')
+const { addUser, onDisconnect } = require('./entity')
 
 const connectSocket = (server) => {
   const io = socket(server, { cors: { origin: 'http://localhost:3000' } })
@@ -10,7 +10,7 @@ const connectSocket = (server) => {
 
     socket.on('join', ({ name, room }, callback) => {
       console.log('User joined')
-      const { error } = addUser({ id: socket.id, name, room })
+      const { error, users } = addUser({ id: socket.id, name, room })
       if (error) {
         callback(error)
         return
@@ -18,6 +18,9 @@ const connectSocket = (server) => {
       socket.to(room).emit('messagein', { text: 'user connected ' + name })
       socket.emit('messagein', { text: 'user connected ' + name })
       socket.join(room)
+
+      socket.to(room).emit('setactiveusers', { activeUsers: users })
+      socket.emit('setactiveusers', { activeUsers: users })
     })
 
     socket.on('sendmessage', ({ name, room, message }, cb) => {
@@ -25,8 +28,22 @@ const connectSocket = (server) => {
       cb()
     })
 
-    socket.on('disconnect', () => {
-      console.log('socket is disconnected')
+    socket.on('disconnect', (obj) => {
+      const disconnectInfo = onDisconnect(socket.id)
+
+      if (!disconnectInfo?.disconnectedUser) {
+        return
+      }
+
+      const { disconnectedUser, users } = disconnectInfo
+      socket
+        .to(disconnectedUser.room)
+        .emit('setactiveusers', { activeUsers: users })
+
+      socket.to(disconnectedUser.room).emit('messagein', {
+        text: disconnectedUser.name + ' has disconnected',
+      })
+      console.log('socket is disconnected', disconnectedUser, users)
     })
   })
 }

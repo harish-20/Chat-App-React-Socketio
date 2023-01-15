@@ -1,4 +1,5 @@
 .chat {
+  position: relative;
   color: black;
 }
 
@@ -20,6 +21,26 @@
 .chat-container::-webkit-scrollbar-thumb {
   background-color: var(--primary-color);
   border-radius: 3px;
+}
+
+.active-users {
+  min-width: 200px;
+  position: absolute;
+  top: 0;
+  left: 110%;
+  background-color: white;
+  padding: 20px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.active-users ul {
+  color: green;
+  font-weight: 500;
+}
+
+.active-users ul li span {
+  color: black;
 }
 
 .roomid {

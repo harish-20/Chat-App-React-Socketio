@@ -20,9 +20,21 @@ const addUser = ({ id, name, room }) => {
     }
   }
   const user = { id, name, room }
-  users.unshift(user)
+  users = [user, ...users]
+  console.log(users)
 
-  return { error: false }
+  return { error: false, users }
 }
 
-module.exports = addUser
+const onDisconnect = (id) => {
+  const disconnectedUser = users.find((user) => user.id === id)
+  if (!disconnectedUser) {
+    return
+  }
+
+  users = users.filter((user) => user.id !== id)
+
+  return { disconnectedUser, users }
+}
+
+module.exports = { addUser, onDisconnect }

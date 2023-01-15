@@ -11,6 +11,7 @@ import classes from './Chat.module.css'
 const Chat = () => {
   const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [activeUsers, setActiveUsers] = useState([])
   const params = useParams()
 
   const navigate = useNavigate()
@@ -40,8 +41,14 @@ const Chat = () => {
   }, [])
 
   useEffect(() => {
-    chatContainerRef.current.scroll({ top: 100000, behavior: 'smooth' })
+    const height = document.getElementById('chat-container').height
+    chatContainerRef.current.scroll({ top: height, behavior: 'smooth' })
   }, [messages])
+
+  socket.on('setactiveusers', (users) => {
+    setActiveUsers(users.activeUsers)
+    console.log(users)
+  })
 
   socket.on('messagein', (message) => {
     setMessages((prev) => [...prev, message])
@@ -77,7 +84,11 @@ const Chat = () => {
         <h4>Room id:</h4>
         <span>{room}</span>
       </div>
-      <div className={classes['chat-container']} ref={chatContainerRef}>
+      <div
+        id="chat-container"
+        className={classes['chat-container']}
+        ref={chatContainerRef}
+      >
         <ul className={classes['message-container']}>
           {messages.map((message, i) => {
             console.log('messages', message)
@@ -101,6 +112,16 @@ const Chat = () => {
             )
           })}
         </ul>
+        <div className={classes['active-users']}>
+          <h3>Active users</h3>
+          <ul>
+            {activeUsers.map((user) => (
+              <li>
+                <span>{user.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className={classes.actions}>
         <form onSubmit={sendMessage}>
