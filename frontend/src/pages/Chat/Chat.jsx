@@ -41,8 +41,11 @@ const Chat = () => {
   }, [])
 
   useEffect(() => {
-    const height = document.getElementById('chat-container').height
-    chatContainerRef.current.scroll({ top: height, behavior: 'smooth' })
+    const container = document.getElementById('chat-container')
+    chatContainerRef.current.scroll({
+      top: container.scrollHeight,
+      behavior: 'smooth',
+    })
   }, [messages])
 
   socket.on('setactiveusers', (users) => {
@@ -125,7 +128,12 @@ const Chat = () => {
       </div>
       <div className={classes.actions}>
         <form onSubmit={sendMessage}>
-          <input type="text" name="message" ref={messageRef} />
+          <input
+            type="text"
+            name="message"
+            ref={messageRef}
+            autoComplete="off"
+          />
           {isLoading ? (
             <Button onClick={sendMessage} style={{ background: 'darkblue' }}>
               Sending...

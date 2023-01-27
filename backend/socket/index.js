@@ -6,10 +6,8 @@ const connectSocket = (server) => {
 
   // socket fuctions
   io.on('connect', (socket, cb) => {
-    console.log('socket is connected')
-
     socket.on('join', ({ name, room }, callback) => {
-      console.log('User joined')
+      console.log('User joined', name)
       const { error, users } = addUser({ id: socket.id, name, room })
       if (error) {
         callback(error)
@@ -24,7 +22,7 @@ const connectSocket = (server) => {
     })
 
     socket.on('sendmessage', ({ name, room, message }, cb) => {
-      socket.broadcast.to(room).emit('messagein', { user: name, text: message })
+      socket.to(room).emit('messagein', { user: name, text: message })
       cb()
     })
 
