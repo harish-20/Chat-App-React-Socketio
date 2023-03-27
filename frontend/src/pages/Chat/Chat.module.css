@@ -37,6 +37,7 @@
 .active-users ul {
   color: green;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .active-users ul li span {
@@ -45,7 +46,6 @@
 
 .roomid {
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 4px;
@@ -100,11 +100,13 @@
 .sender {
   align-self: flex-end;
   background-color: rgba(84, 147, 255, 0.797);
+  border-radius: 5px 5px 0px 5px;
 }
 
 .receiver {
   background-color: rgba(56, 255, 225, 0.797);
   align-self: flex-start;
+  border-radius: 5px 5px 5px 0px;
 }
 
 .actions {
